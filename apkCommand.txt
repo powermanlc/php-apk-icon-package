@@ -1,0 +1,29 @@
+aapt安装工具
+wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
+wget http://connortumbleson.com/apktool/apktool_2.2.2.jar
+mv apktool_2.2.2.jar apktool.jar
+wget http://connortumbleson.com/apktool/aapt/linux/aapt
+mkdir  /usr/local/apktool
+mv apktool apktool.jar aapt /usr/local/apktool
+cd /usr/local/apktool
+chmod +x apktool apktool.jar aapt
+vim /etc/profile     添加：export PATH="$PATH:/usr/local/apktool"
+source /etc/profile
+wget http://ftp.gnu.org/gnu/glibc/glibc-2.14.tar.gz
+tar zxvf glibc-2.14.tar.gz
+cd glibc-2.14
+mkdir build
+cd build
+../configure --prefix=/opt/glibc-2.14
+make -j4 && make install
+方法一：
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$LD_LIBRARY_PATH
+source /etc/profile
+方法二：
+cd /usr/local/apktool
+mv aapt aapt_
+vim aapt
+#!/bin/sh
+echo "$0"_$@
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib && "$0"_ $@
+chmod 755 aapt
